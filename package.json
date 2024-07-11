@@ -9,12 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tsparticles/vue3": "^3.0.1",
     "element-plus": "^2.7.6",
+    "pinia": "^2.1.7",
+    "tsparticles": "^3.5.0",
     "vue": "^3.4.29",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
+    "sass": "^1.77.7",
+    "sass-loader": "^14.2.1",
     "vite": "^5.3.1"
   }
 }
