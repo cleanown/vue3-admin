@@ -1,11 +1,14 @@
 {
 	"compilerOptions": {
-		"lib": ["ES2015","DOM"],
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"lib": ["ESNext","DOM"],
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["src/*"]
 		},
-		"types": ["element-plus/global"]
+		"types": ["element-plus/global", "vite/client"]
 	},
-	"include": ["src"]
+	"include": ["src", "types"],
 }

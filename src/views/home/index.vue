@@ -3,11 +3,15 @@
 </template>
 	
 <script setup lang='ts'>
+import { onMounted } from "vue"
 import { useRouter } from "vue-router"
 const router = useRouter()
 function handleToLogin () {
 	router.push("/login")
 }
+onMounted(() => {
+	handleToLogin()
+})
 </script>
 	
 <style>

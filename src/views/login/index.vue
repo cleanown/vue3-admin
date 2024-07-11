@@ -1,14 +1,31 @@
 <template>
 	<vue-particles id="tsparticles" :options="particlesOptions" />
 	<div class="login fcc">
-		<el-card class="login-box">
-			<div v-for="item in 10">士大夫十分</div>
-  	</el-card>
+		<div class="login-content">
+			<div class="login-header">
+				<el-avatar :size="50" :src="logoImg" />
+				<span class="login-title pdl_10">沃萌科技</span>
+			</div>
+			<el-form class="login-form" :model="formData" ref="formRef" :rules="rules" label-width="60px">
+				<el-form-item label="账号" prop="username">
+					<el-input class="form-inp" v-model="formData.username" placeholder="请输入账号" clearable></el-input>
+				</el-form-item>
+				<el-form-item label="密码" prop="password">
+					<el-input class="form-inp" v-model="formData.password" type="password" placeholder="请输入密码" clearable></el-input>
+				</el-form-item>
+			</el-form>
+			<div class="login-btn">
+				<el-button class="full-content" type="primary" @click="handleConfirm(formRef)">登 录</el-button>
+			</div>
+  	</div>
 	</div>
 </template>
 
 <script setup lang='ts'>
-import { reactive } from "vue"
+import { ref, reactive } from "vue"
+import logoImg from "@/assets/images/common/logo.png"
+import { FormInstance, FormRules, ElMessage } from "element-plus"
+import { validatePassword } from "@/utils/validate"
 const particlesOptions = reactive({
 	background: {
 		color: {
@@ -74,6 +91,35 @@ const particlesOptions = reactive({
 	},
 	detectRetina: true,
 })
+
+const formRef = ref<FormInstance>()
+interface RuleForm {
+	username: string,
+	password: string,
+}
+let formData = reactive<RuleForm>({
+	username: import.meta.env.MODE === 'development' ? "test" : "",
+	password: import.meta.env.MODE === 'development' ? "test123456" : "",
+})
+const rules = reactive<FormRules<RuleForm>>({
+	username: [
+		{ required: true, message: "请输入账号", trigger: "blur"},
+	],
+	password: [
+		{ required: true, message: "请输入密码", trigger: "blur"},
+		{ validator: validatePassword, trigger: "blur"},
+	],
+})
+const handleConfirm = async (formEl: FormInstance | undefined) => {
+	if (!formEl) return
+	await formEl.validate((valid, fields) => {
+		if (valid) {
+
+		} else {
+			ElMessage("请完善表单数据")
+		}
+	})
+}
 </script>
 
 <style lang="scss" scoped>
@@ -85,8 +131,34 @@ const particlesOptions = reactive({
 	left: 0;
 	z-index: 1;
 	background: transparent;
-	.login-box{
-	
+	.login-content{
+		background-color: rgba($color: #121a2a, $alpha: 0.8);
+		border-radius: 5px;
+		padding: 20px 10px 30px 10px;
+		display: flex;
+		flex-direction: column;
+		.login-header{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.login-title{
+				font-size: 20px;
+				font-weight: bold;
+				color: #fff;
+			}
+		}
+		.login-form{
+			padding: 20px 20px 0 0;
+			.form-inp{
+				width: 200px;
+			}
+		}
+		.login-btn{
+			padding: 10px 20px 0 20px;
+		}
 	}
+}
+::v-deep .el-form-item__label{
+	color: #ccc
 }
 </style>
