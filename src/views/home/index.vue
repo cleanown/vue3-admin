@@ -10,7 +10,6 @@ function handleToLogin () {
 	router.push("/login")
 }
 onMounted(() => {
-	handleToLogin()
 })
 </script>
 	

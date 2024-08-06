@@ -23,6 +23,7 @@
 
 <script setup lang='ts'>
 import { ref, reactive } from "vue"
+import { useRouter } from "vue-router"
 import logoImg from "@/assets/images/common/logo.png"
 import { FormInstance, FormRules, ElMessage } from "element-plus"
 import { validatePassword } from "@/utils/validate"
@@ -59,10 +60,10 @@ const particlesOptions = reactive({
 	preset: "Sea Anemone",
 	particles: {
 		color: {
-			value: '#ffffff'
+			value: '#fff'
 		},
 		links: {
-			color: '#ffffff',
+			color: '#fff',
 			distance: 150,
 			enable: true,
 			opacity: 0.5,
@@ -92,6 +93,7 @@ const particlesOptions = reactive({
 	detectRetina: true,
 })
 
+const router = useRouter()
 const formRef = ref<FormInstance>()
 interface RuleForm {
 	username: string,
@@ -114,7 +116,7 @@ const handleConfirm = async (formEl: FormInstance | undefined) => {
 	if (!formEl) return
 	await formEl.validate((valid, fields) => {
 		if (valid) {
-
+			router.push('/')
 		} else {
 			ElMessage("请完善表单数据")
 		}
@@ -158,7 +160,7 @@ const handleConfirm = async (formEl: FormInstance | undefined) => {
 		}
 	}
 }
-::v-deep .el-form-item__label{
+:deep(.el-form-item__label){
 	color: #ccc
 }
 </style>

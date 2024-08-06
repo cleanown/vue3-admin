@@ -1,0 +1,86 @@
+<template>
+	<el-sub-menu :class="{ 'sub-menu-active': isSubMenuActive }" v-if="menuItem.children && menuItem.children.length" :index="basePath">
+		<template #title>
+			<el-icon><component :is="menuInfo.meta.icon"/></el-icon>
+			<span>{{menuInfo.meta.title}}</span>
+		</template>
+		<SidebarItem v-for="(childItem, childIndex) in menuItem.children" :menuItem="childItem" :basePath="basePath" :key="childIndex" />
+	</el-sub-menu>
+	<el-menu-item :class="{ 'menu-item-active': isMenuItemActive }" v-else :index="resolvePath(menuInfo.path)">
+		<template #title>
+			<div style="width: 100%;" @click="handleTo(resolvePath(menuInfo.path))">
+				<el-icon><component :is="menuInfo.meta.icon"/></el-icon>
+				<span>{{menuInfo.meta.title}}</span>
+			</div>
+		</template>
+	</el-menu-item>
+</template>
+
+<script setup lang='ts'>
+import { defineProps, reactive, onMounted, computed } from "vue"
+import { useRouter, useRoute } from "vue-router"
+const router = useRouter()
+const route = useRoute()
+const prop = defineProps({
+	menuItem: {
+		type: Object,
+		default: () => {}
+	},
+	basePath: {
+		type: String,
+		default: ""
+	},
+})
+const menuInfo = reactive(prop.menuItem)
+function handleTo (path: string) {
+	router.push(path)
+}
+function resolvePath (routerPath: string) : string {
+	return prop.basePath + "/" + routerPath
+}
+const isSubMenuActive = computed(() => {
+	return prop.menuItem.children && prop.menuItem.children.length && route.path.includes(prop.basePath)
+})
+const isMenuItemActive = computed(() => {
+	return route.path == resolvePath(menuInfo.path)
+})
+</script>
+
+<style lang="scss" scoped>
+.silebar-item{
+	
+}
+:deep(.el-sub-menu__title){
+	font-weight: bold;
+	color: #B2B6DD;
+	border-radius: 10px;
+	margin: 3px 5px;
+}
+:deep(.el-sub-menu__title:hover){
+	background-color: #fff;
+	color: #4452EA;
+}
+.sub-menu-active{
+	:deep(.el-sub-menu__title){
+		background-color: #fff;
+		color: #4452EA;
+	}
+}
+:deep(.el-menu-item){
+	font-weight: bold;
+	border-radius: 10px;
+	color: #B2B6DD;
+}
+:deep(.el-menu-item.is-active){
+	color: initial;
+}
+:deep(.el-menu-item:hover){
+	background-color: #fff;
+	color: #4452EA;
+}
+.menu-item-active{
+	background-color: #fff;
+	margin: 3px 5px;
+	color: #4452EA !important;
+}
+</style>
