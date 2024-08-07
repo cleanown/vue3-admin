@@ -72,14 +72,14 @@ const isMenuItemActive = computed(() => {
 	color: #B2B6DD;
 }
 :deep(.el-menu-item.is-active){
-	color: initial;
+	color: #B2B6DD;
 }
 :deep(.el-menu-item:hover){
 	background-color: #fff;
 	color: #4452EA;
 }
 .menu-item-active{
-	background-color: #fff;
+	background-color: rgba($color: #fff, $alpha: 0.8);
 	margin: 3px 5px;
 	color: #4452EA !important;
 }

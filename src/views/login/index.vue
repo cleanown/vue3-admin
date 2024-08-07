@@ -1,6 +1,6 @@
 <template>
-	<vue-particles id="tsparticles" :options="particlesOptions" />
-	<div class="login fcc">
+	<div class="login-bg fcc">
+		<vue-particles id="tsparticles" :options="particlesOptions" />
 		<div class="login-content">
 			<div class="login-header">
 				<el-avatar :size="50" :src="logoImg" />
@@ -17,8 +17,9 @@
 			<div class="login-btn">
 				<el-button class="full-content" type="primary" @click="handleConfirm(formRef)">登 录</el-button>
 			</div>
-  	</div>
+		</div>
 	</div>
+	
 </template>
 
 <script setup lang='ts'>
@@ -27,10 +28,11 @@ import { useRouter } from "vue-router"
 import logoImg from "@/assets/images/common/logo.png"
 import { FormInstance, FormRules, ElMessage } from "element-plus"
 import { validatePassword } from "@/utils/validate"
+import Global from "@/customStore/Global"
 const particlesOptions = reactive({
 	background: {
 		color: {
-			value: '#000'
+			value: ''
 		}
 	},
 	fpsLimit: 120,
@@ -92,7 +94,6 @@ const particlesOptions = reactive({
 	},
 	detectRetina: true,
 })
-
 const router = useRouter()
 const formRef = ref<FormInstance>()
 interface RuleForm {
@@ -116,6 +117,12 @@ const handleConfirm = async (formEl: FormInstance | undefined) => {
 	if (!formEl) return
 	await formEl.validate((valid, fields) => {
 		if (valid) {
+			const res: UserInfo = {
+				username: "test",
+				token: "test",
+				avatar: "https://cdn.womo.site/admin/file/1722937137107_a6ltbxumevv_微信图片_20240806173358.jpg",
+			}
+			Global.user.update(res)
 			router.push('/')
 		} else {
 			ElMessage("请完善表单数据")
@@ -125,14 +132,14 @@ const handleConfirm = async (formEl: FormInstance | undefined) => {
 </script>
 
 <style lang="scss" scoped>
-.login {
+.login-bg{
 	position: fixed;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
 	z-index: 1;
-	background: transparent;
+	background-color: rgba($color: #102b6a, $alpha: 0.8);
 	.login-content{
 		background-color: rgba($color: #121a2a, $alpha: 0.8);
 		border-radius: 5px;

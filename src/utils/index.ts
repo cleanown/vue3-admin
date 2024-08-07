@@ -39,7 +39,7 @@ export function modiflyData (target: Object, value: Object) {
  * formatDate(1603264465956, 'Y年-M月-D日');
  * ```
  */
-export function formatDate(value: string | number | Date = Date.now(), format: string = 'Y-M-D h:m:s') {
+export function formatDate(value: string | number | Date = Date.now(), format: string = 'Y-M-D h:m:s') : string {
   // ios 和 mac 系统中，带横杆的字符串日期是格式不了的，这里做一下判断处理
   if (typeof value === 'string' && new Date(value).toString() === 'Invalid Date') {
     value = value.replace(/-/g, '/');

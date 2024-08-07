@@ -1,6 +1,6 @@
 import { createWebHistory, createRouter, RouteRecordRaw } from "vue-router"
-
 import Layout from "@/layout/index.vue"
+import Global from "@/customStore/Global"
 
 let baseRoutes: RouteRecordRaw[] = [
 	{ path: '/login', component: () => import("@/views/login/index.vue") },
@@ -51,6 +51,17 @@ const routes: RouteRecordRaw[] = [...baseRoutes, ...addRoutes]
 const router = createRouter({
 	history: createWebHistory(),
 	routes
+})
+
+router.beforeEach((to,from,next) => {
+	const userInfo: UserInfo = Global.user.info
+	if (!userInfo.token && to.fullPath !== "/login") {
+		next({path: "/login"})
+	} else if (userInfo.token && to.fullPath == "/login") {
+		next({path: "/"})
+	} else {
+		next()
+	}
 })
 
 export default router
