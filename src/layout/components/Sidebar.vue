@@ -70,8 +70,8 @@ onMounted(() => {
 }
 /* 滚动条整体样式 */
 ::-webkit-scrollbar {
-  width: 8px; /* 滚动条的宽度 */
-  height: 8px; /* 滚动条的高度 */
+  width: 5px; /* 滚动条的宽度 */
+  height: 5px; /* 滚动条的高度 */
 }
 
 /* 滚动条轨道 */
@@ -82,12 +82,12 @@ onMounted(() => {
 
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
-  background: rgba($color: #1890FF, $alpha: 0.4); /* 滑块的背景色 */
+  background: rgba($color: #4452EA, $alpha: 0.5); /* 滑块的背景色 */
   border-radius: 7px; /* 滑块的圆角 */
 }
 
 /* 滑块在被鼠标悬停时的样式 */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba($color: #1890FF, $alpha: 0.6); /* 滑块在悬停时的背景色 */
+  background: rgba($color: #4452EA, $alpha: 0.8); /* 滑块在悬停时的背景色 */
 }
 </style>
