@@ -13,3 +13,8 @@ type OtherLink = {
 	password?: string,
 	children?: OtherLink[]
 }
+
+interface ResponseCustom {
+	code: number,
+	msg: string,
+}

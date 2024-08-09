@@ -4,9 +4,9 @@
 </template>
 
 <script setup lang='ts'>
-	import Navbar from "./Navbar.vue";
-	import { layoutInfoP } from "@/store/layoutStore"
-	const layoutDataP = layoutInfoP()
+import Navbar from "./Navbar.vue";
+import { layoutInfoP } from "@/store/layoutStore"
+const layoutDataP = layoutInfoP()
 </script>
 
 <style lang="scss" scoped>

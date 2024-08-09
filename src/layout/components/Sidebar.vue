@@ -2,7 +2,7 @@
 	<div class="sidebar">
 		<div class="sidebar-header">
 			<el-avatar :size="40" :src="logoImg" />
-			<span v-if="!layoutDataP.isCollapse" class="sidebar-title">沃萌科技</span>
+			<span v-if="!layoutDataP.isCollapse" class="sidebar-title">模板项目</span>
 		</div>
 		<el-menu class="el-menu-vertical" mode="vertical" :default-active="defaultActive" :collapse="layoutDataP.isCollapse">
 			<SidebarItem v-for="(item, index) in menuTree" :basePath="item.path" :menuItem="item" :key="index" />
@@ -11,26 +11,25 @@
 </template>
 
 <script setup lang='ts'>
-	import logoImg from "@/assets/images/common/logo.png"
-	import SidebarItem from "./SidebarItem.vue"
-	import { ref, reactive, onMounted, computed } from "vue";
-	import { RouteRecordRaw, useRoute } from "vue-router"
-	import { layoutInfoP } from "@/store/layoutStore"
-	import { addRoutes } from "@/router/index"
+import logoImg from "@/assets/images/common/logo.gif"
+import SidebarItem from "./SidebarItem.vue"
+import { ref, reactive, onMounted, computed } from "vue";
+import { RouteRecordRaw, useRoute } from "vue-router"
+import { layoutInfoP } from "@/store/layoutStore"
+import { addRoutes } from "@/router/index"
 
-	const route = useRoute()
+const route = useRoute()
 
-	const menuTree: RouteRecordRaw[] = addRoutes
+const menuTree: RouteRecordRaw[] = addRoutes
 
-	const layoutDataP = layoutInfoP()
+const layoutDataP = layoutInfoP()
 
-	const defaultActive = computed(() => {
-		return route.path
-	})
-	
-	onMounted(() => {
-	})
+const defaultActive = computed(() => {
+	return route.path
+})
 
+onMounted(() => {
+})
 </script>
 
 <style lang="scss" scoped>

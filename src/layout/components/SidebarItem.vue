@@ -1,5 +1,5 @@
 <template>
-	<el-sub-menu :class="{ 'sub-menu-active': isSubMenuActive }" v-if="menuItem.children && menuItem.children.length" :index="basePath">
+	<el-sub-menu class="silebar-item" :class="{ 'sub-menu-active': isSubMenuActive }" v-if="menuItem.children && menuItem.children.length" :index="basePath">
 		<template #title>
 			<el-icon><component :is="menuInfo.meta.icon"/></el-icon>
 			<span>{{menuInfo.meta.title}}</span>
@@ -48,7 +48,7 @@ const isMenuItemActive = computed(() => {
 
 <style lang="scss" scoped>
 .silebar-item{
-	
+	transition: all 0.3s;
 }
 :deep(.el-sub-menu__title){
 	font-weight: bold;
@@ -59,6 +59,8 @@ const isMenuItemActive = computed(() => {
 :deep(.el-sub-menu__title:hover){
 	background-color: #fff;
 	color: #4452EA;
+	border-radius: 10px;
+	margin: 3px 5px;
 }
 .sub-menu-active{
 	:deep(.el-sub-menu__title){
@@ -70,6 +72,7 @@ const isMenuItemActive = computed(() => {
 	font-weight: bold;
 	border-radius: 10px;
 	color: #B2B6DD;
+	margin: 3px 5px;
 }
 :deep(.el-menu-item.is-active){
 	color: #B2B6DD;
@@ -77,6 +80,8 @@ const isMenuItemActive = computed(() => {
 :deep(.el-menu-item:hover){
 	background-color: #fff;
 	color: #4452EA;
+	border-radius: 10px;
+	margin: 3px 5px;
 }
 .menu-item-active{
 	background-color: rgba($color: #fff, $alpha: 0.8);

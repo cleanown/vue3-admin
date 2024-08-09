@@ -15,7 +15,7 @@
 				</el-form-item>
 			</el-form>
 			<div class="login-btn">
-				<el-button class="full-content" type="primary" @click="handleConfirm(formRef)">登 录</el-button>
+				<el-button class="full-content" type="primary" @click="handleConfirm(formRef)" :loading="isConfirmLoading">登 录</el-button>
 			</div>
 		</div>
 	</div>
@@ -29,6 +29,8 @@ import logoImg from "@/assets/images/common/logo.png"
 import { FormInstance, FormRules, ElMessage } from "element-plus"
 import { validatePassword } from "@/utils/validate"
 import Global from "@/customStore/Global"
+import { auth } from "@/api/user"
+const isLoading = ref(false)
 const particlesOptions = reactive({
 	background: {
 		color: {
@@ -101,8 +103,8 @@ interface RuleForm {
 	password: string,
 }
 let formData = reactive<RuleForm>({
-	username: import.meta.env.MODE === 'development' ? "test" : "",
-	password: import.meta.env.MODE === 'development' ? "test123456" : "",
+	username: import.meta.env.MODE === 'development' ? "admin" : "",
+	password: import.meta.env.MODE === 'development' ? "admin123456" : "",
 })
 const rules = reactive<FormRules<RuleForm>>({
 	username: [
@@ -113,21 +115,46 @@ const rules = reactive<FormRules<RuleForm>>({
 		{ validator: validatePassword, trigger: "blur"},
 	],
 })
-const handleConfirm = async (formEl: FormInstance | undefined) => {
+async function handleConfirm (formEl: FormInstance | undefined) {
 	if (!formEl) return
 	await formEl.validate((valid, fields) => {
 		if (valid) {
-			const res: UserInfo = {
-				username: "test",
-				token: "test",
-				avatar: "https://cdn.womo.site/admin/file/1722937137107_a6ltbxumevv_微信图片_20240806173358.jpg",
-			}
-			Global.user.update(res)
-			router.push('/')
+			_login()
 		} else {
-			ElMessage("请完善表单数据")
+			ElMessage({
+				message: "请完善表单数据",
+				type: "warning"
+			})
 		}
 	})
+}
+const isConfirmLoading = ref(false)
+async function _login () {
+	isConfirmLoading.value = true
+	const res = await auth({
+		account: formData.username,
+		password: formData.password
+	})
+	console.log('%cres', 'color: green;', res)
+	isConfirmLoading.value = false
+	if (res.code == 0) {
+		ElMessage({
+			message: "登录成功",
+			type: "success"
+		})
+		const user: UserInfo = {
+			username: "test",
+			avatar: "https://cdn.womo.site/admin/file/1722937137107_a6ltbxumevv_微信图片_20240806173358.jpg",
+			token: res.object.token
+		}
+		Global.user.update(user)
+		router.push("/")
+	} else {
+		ElMessage({
+			message: res.msg,
+			type: "error"
+		})
+	}
 }
 </script>
 

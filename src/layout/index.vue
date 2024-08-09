@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang='ts'>
-	import Sidebar from "./components/Sidebar.vue"
-	import AppMain from "./components/AppMain.vue"
+import Sidebar from "./components/Sidebar.vue"
+import AppMain from "./components/AppMain.vue"
 </script>
 
 <style lang="scss" scoped>
