@@ -51,6 +51,7 @@ const isMenuItemActive = computed(() => {
 	transition: all 0.3s;
 }
 :deep(.el-sub-menu__title){
+	background-color: rgba($color: #fff, $alpha: 0.3);
 	font-weight: bold;
 	color: #B2B6DD;
 	border-radius: 10px;
