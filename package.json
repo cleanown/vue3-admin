@@ -22,6 +22,8 @@
     "@vitejs/plugin-vue": "^5.0.5",
     "sass": "^1.77.7",
     "sass-loader": "^14.2.1",
+    "unplugin-auto-import": "^0.18.2",
+    "unplugin-vue-components": "^0.27.3",
     "vite": "^5.3.1"
   }
 }

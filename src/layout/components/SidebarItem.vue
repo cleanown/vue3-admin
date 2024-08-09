@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang='ts'>
-import { defineProps, reactive, onMounted, computed } from "vue"
+import { reactive, computed } from "vue"
 import { useRouter, useRoute } from "vue-router"
 const router = useRouter()
 const route = useRoute()

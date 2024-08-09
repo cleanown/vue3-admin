@@ -4,7 +4,7 @@
 		<div class="login-content">
 			<div class="login-header">
 				<el-avatar :size="50" :src="logoImg" />
-				<span class="login-title pdl_10">沃萌科技</span>
+				<span class="login-title pdl_10">项目模板</span>
 			</div>
 			<el-form class="login-form" :model="formData" ref="formRef" :rules="rules" label-width="60px">
 				<el-form-item label="账号" prop="username">
@@ -25,7 +25,7 @@
 <script setup lang='ts'>
 import { ref, reactive } from "vue"
 import { useRouter } from "vue-router"
-import logoImg from "@/assets/images/common/logo.png"
+import logoImg from "@/assets/images/common/logo.gif"
 import { FormInstance, FormRules, ElMessage } from "element-plus"
 import { validatePassword } from "@/utils/validate"
 import Global from "@/customStore/Global"

@@ -1,16 +1,18 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import './styles/index.scss'
+import './styles/element/index.scss'
 
 import { createPinia } from "pinia"
 const pinia = createPinia()
 
-import router from "./router/index.ts"
+import router from "./router"
 
 import ElementPlus from 'element-plus'
-import './styles/index.scss'
 import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
 
 import Particles from "@tsparticles/vue3";
 import { loadFull } from "tsparticles";
