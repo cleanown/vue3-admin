@@ -11,6 +11,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "@tsparticles/vue3": "^3.0.1",
+    "@types/node": "^22.1.0",
     "axios": "^1.7.3",
     "element-plus": "^2.7.6",
     "pinia": "^2.1.7",
@@ -22,8 +23,6 @@
     "@vitejs/plugin-vue": "^5.0.5",
     "sass": "^1.77.7",
     "sass-loader": "^14.2.1",
-    "unplugin-auto-import": "^0.18.2",
-    "unplugin-vue-components": "^0.27.3",
     "vite": "^5.3.1"
   }
 }
