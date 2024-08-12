@@ -1,8 +1,10 @@
 <template>
 	<Navbar />
-	<Transition mode="out-in">
-		<router-view class="app-main" :class="{'app-main-isCollapse' : layoutDataP.isCollapse}" />
-	</Transition>
+	<router-view class="app-main" v-slot="{ Component }">
+		<transition name="fade-transform" mode="out-in">
+			<component :is="Component" />
+		</transition>
+	</router-view>
 </template>
 
 <script setup lang='ts'>
@@ -47,17 +49,17 @@ const layoutDataP = layoutInfoP()
 	left: 75px;
 }
 
-.v-enter-active,
-.v-leave-active {
-  transition: all .5s;
+.fade-transform-enter-active,
+.fade-transform-leave-active {
+  transition: all 0.3s;
 }
 
-.v-enter-from{
+.fade-transform-enter-to{
 	opacity: 0;
   transform: translateX(-30px);
 }
-.v-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
+.fade-transform-leave-to {
+  // opacity: 0;
+  // transform: translateX(30px);
 }
 </style>

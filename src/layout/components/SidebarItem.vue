@@ -39,7 +39,7 @@ function resolvePath (routerPath: string) : string {
 	return prop.basePath + "/" + routerPath
 }
 const isSubMenuActive = computed(() => {
-	return prop.menuItem.children && prop.menuItem.children.length && route.path.includes(prop.basePath)
+	return prop.menuItem.children && prop.menuItem.children.length && new RegExp(`^${prop.basePath}`).test(route.path)
 })
 const isMenuItemActive = computed(() => {
 	return route.path == resolvePath(menuInfo.path)
