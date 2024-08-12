@@ -54,12 +54,12 @@ const layoutDataP = layoutInfoP()
   transition: all 0.3s;
 }
 
-.fade-transform-enter-to{
+.fade-transform-enter{
 	opacity: 0;
   transform: translateX(-30px);
 }
 .fade-transform-leave-to {
-  // opacity: 0;
-  // transform: translateX(30px);
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
