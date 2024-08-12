@@ -1,6 +1,8 @@
 <template>
 	<Navbar />
-	<router-view class="app-main" :class="{'app-main-isCollapse' : layoutDataP.isCollapse}" />
+	<Transition mode="out-in">
+		<router-view class="app-main" :class="{'app-main-isCollapse' : layoutDataP.isCollapse}" />
+	</Transition>
 </template>
 
 <script setup lang='ts'>
@@ -43,5 +45,19 @@ const layoutDataP = layoutInfoP()
 }
 .app-main-isCollapse{
 	left: 75px;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all .5s;
+}
+
+.v-enter-from{
+	opacity: 0;
+  transform: translateX(-30px);
+}
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

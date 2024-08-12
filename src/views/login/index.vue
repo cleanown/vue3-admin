@@ -130,31 +130,42 @@ async function handleConfirm (formEl: FormInstance | undefined) {
 }
 const isConfirmLoading = ref(false)
 async function _login () {
-	isConfirmLoading.value = true
-	const res = await auth({
-		account: formData.username,
-		password: formData.password
+	ElMessage({
+		message: "登录成功",
+		type: "success"
 	})
-	console.log('%cres', 'color: green;', res)
-	isConfirmLoading.value = false
-	if (res.code == 0) {
-		ElMessage({
-			message: "登录成功",
-			type: "success"
-		})
-		const user: UserInfo = {
-			username: "test",
-			avatar: "https://cdn.womo.site/admin/file/1722937137107_a6ltbxumevv_微信图片_20240806173358.jpg",
-			token: res.object.token
-		}
-		Global.user.update(user)
-		router.push("/")
-	} else {
-		ElMessage({
-			message: res.msg,
-			type: "error"
-		})
+	const user: UserInfo = {
+		username: "test",
+		avatar: "https://cdn.womo.site/admin/file/1722937137107_a6ltbxumevv_微信图片_20240806173358.jpg",
+		token: "test"
 	}
+	Global.user.update(user)
+	router.push("/")
+	// isConfirmLoading.value = true
+	// const res = await auth({
+	// 	account: formData.username,
+	// 	password: formData.password
+	// })
+	// console.log('%cres', 'color: green;', res)
+	// isConfirmLoading.value = false
+	// if (res.code == 0) {
+	// 	ElMessage({
+	// 		message: "登录成功",
+	// 		type: "success"
+	// 	})
+	// 	const user: UserInfo = {
+	// 		username: "test",
+	// 		avatar: "https://cdn.womo.site/admin/file/1722937137107_a6ltbxumevv_微信图片_20240806173358.jpg",
+	// 		token: res.object.token
+	// 	}
+	// 	Global.user.update(user)
+	// 	router.push("/")
+	// } else {
+	// 	ElMessage({
+	// 		message: res.msg,
+	// 		type: "error"
+	// 	})
+	// }
 }
 </script>
 

@@ -1,7 +1,7 @@
 import Global from "@/customStore/Global"
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, Method } from "axios"
 const server: AxiosInstance = axios.create({
-	baseURL: "https://kpgame.kingpoint.net",
+	baseURL: "",
 	timeout: 60 * 1000
 })
 
