@@ -15,7 +15,7 @@
 			<el-button class="list-search-btn" type="primary" size="default" @click="handleReset">重置</el-button>
 		</div>
 		<div class="list-content">
-			<el-table :data="tableData" :height="getTableHeight()">
+			<el-table :data="tableData" :max-height="getTableHeight()">
 				<el-table-column prop="date" label="日期" :min-width="200" show-overflow-tooltip fixed />
 				<el-table-column prop="name" label="名称" :min-width="200" show-overflow-tooltip />
 				<el-table-column prop="address" label="地址" :min-width="200" show-overflow-tooltip />
@@ -31,6 +31,7 @@
 					</template>
 				</el-table-column>
 			</el-table>
+			<Pagination v-model="searchInfo" @change="handleSearch" />
 			<el-pagination
 				class="list-pager"
 				v-model:current-page="searchInfo.current"

@@ -1,5 +1,5 @@
 {
-	"compilerOptions": {
+  "compilerOptions": {
 		"target": "ESNext",
 		"module": "ESNext",
 		"moduleResolution": "bundler",
@@ -11,4 +11,9 @@
 		"types": ["element-plus/global", "vite/client"]
 	},
 	"include": ["src", "types"],
+  // "files": [],
+  // "references": [
+  //   { "path": "./tsconfig.app.json" },
+  //   { "path": "./tsconfig.node.json" }
+  // ]
 }

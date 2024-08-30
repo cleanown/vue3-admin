@@ -1,20 +1,21 @@
 import { createApp } from 'vue'
-import App from './App.vue'
 import './styles/index.scss'
+import App from './App.vue'
 
-import { createPinia } from "pinia"
+import router from "./router/index"
+
+import { createPinia } from 'pinia'
 const pinia = createPinia()
-
-import router from "./router"
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-
 import Particles from "@tsparticles/vue3";
 import { loadFull } from "tsparticles";
+
+import Pagination from "@/components/Pagination/index.vue"
 
 const app = createApp(App)
 app.use(pinia)
@@ -30,4 +31,7 @@ app.use(Particles, {
 		await loadFull(engine)
 	}
 })
+
+app.component("Pagination", Pagination)
+
 app.mount("#app")
