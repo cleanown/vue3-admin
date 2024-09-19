@@ -3,10 +3,11 @@
  * @param {any} target 检测的目标
  * @returns {'string'|'number'|'array'|'boolean'|'object'|'function'|'null'|'undefined'|'regexp'|'promise'} 只枚举一些常用的类型
  */
-export function checkType (target: any) : string {
-	const value = Object.prototype.toString.call(target)
-	const result = value.match(/\[object (\S*)\]/)[1]
-	return result.toLocaleLowerCase()
+export function checkType(target: unknown): string {
+  const value = Object.prototype.toString.call(target);
+  const matchValue = value.match(/\[object (\S*)\]/);
+  const result = matchValue ? matchValue[1] : 'unknown';
+  return result.toLocaleLowerCase();
 }
 
 /**
@@ -14,23 +15,25 @@ export function checkType (target: any) : string {
  * @param {object} target 修改的目标
  * @param {object} value 修改的内容
  */
-export function modiflyData (target: Object, value: Object) {
-	for (const key in value) {
-		if (Object.prototype.hasOwnProperty.call(target, key)) {
-			if (checkType(target[key]) == 'object') {
-				modiflyData(target[key], value[key])
-			} else {
-				target[key] = value[key]
-			}
-		}
-	}
+export function modiflyData<T>(target: T, value: T) {
+  if (checkType(target) == 'object' && checkType(value) == 'object') {
+    for (const key in value) {
+      if (Object.prototype.hasOwnProperty.call(target, key)) {
+        if (checkType(target[key]) == 'object') {
+          modiflyData(target[key], value[key]);
+        } else {
+          target[key] = value[key];
+        }
+      }
+    }
+  }
 }
 
 /**
  * 格式化日期
  * @param {string | number | Date} value 指定日期
  * @param {string} format 格式化的规则
- * @example 
+ * @example
  * ```js
  * formatDate();
  * formatDate(1603264465956);
@@ -39,12 +42,21 @@ export function modiflyData (target: Object, value: Object) {
  * formatDate(1603264465956, 'Y年-M月-D日');
  * ```
  */
-export function formatDate(value: string | number | Date = Date.now(), format: string = 'Y-M-D h:m:s') : string {
+export function formatDate(
+  value: string | number | Date = Date.now(),
+  format: string = 'Y-M-D h:m:s'
+): string {
   // ios 和 mac 系统中，带横杆的字符串日期是格式不了的，这里做一下判断处理
-  if (typeof value === 'string' && new Date(value).toString() === 'Invalid Date') {
+  if (value == null || value == undefined) {
+    return '';
+  }
+  if (
+    typeof value === 'string' &&
+    new Date(value).toString() === 'Invalid Date'
+  ) {
     value = value.replace(/-/g, '/');
   }
-  const formatNumber = n => `0${n}`.slice(-2);
+  const formatNumber = (n: number) => `0${n}`.slice(-2);
   const date = new Date(value);
   const formatList = ['Y', 'M', 'D', 'h', 'm', 's'];
   const resultList = [];
@@ -58,6 +70,19 @@ export function formatDate(value: string | number | Date = Date.now(), format: s
     format = format.replace(formatList[i], resultList[i]);
   }
   return format;
+}
+
+//获取当前url
+export function getRootUrl(): string {
+  const protocol = window.location.protocol;
+  const hostname = window.location.hostname;
+  const port = window.location.port;
+  return `${protocol}//${hostname}${port ? ':' + port : ''}/#/`;
+}
+
+//生成长度为11的随机字母数字字符串
+export function randomStr(): string {
+  return Math.random().toString(36).substring(2);
 }
 
 export function jsonToFormData (params: object) : string {
