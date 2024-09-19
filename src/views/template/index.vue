@@ -11,6 +11,14 @@
 					<el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
 				</el-select>
 			</div>
+			<div class="list-search-item">
+				<div class="search-label">层级：</div>
+				<el-cascader class="search-tree" v-model="searchInfo.tree" :options="treeOptions" clearable filterable @change="handleSearch" />
+			</div>
+			<div class="list-search-item">
+				<div class="search-label">时间：</div>
+				<el-date-picker class="search-time" v-model="searchInfo.time" type="datetimerange" unlink-panels range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间" value-format="YYYY-MM-DD HH:mm:ss" :shortcuts="datetimerange" :disabled-date="disabledFutureDate" @change="handleSearch" />
+			</div>
 			<el-button class="list-search-btn" type="primary" size="default" @click="handleSearch">搜索</el-button>
 			<el-button class="list-search-btn" type="primary" size="default" @click="handleReset">重置</el-button>
 		</div>
@@ -31,31 +39,29 @@
 					</template>
 				</el-table-column>
 			</el-table>
-			<el-pagination
-				class="list-pager"
-				v-model:current-page="searchInfo.current"
-				v-model:page-size="searchInfo.size"
-				:page-sizes="[10, 20, 30, 50, 100, 500, 1000]"
-				layout="total, sizes, prev, pager, next, jumper"
-				:total="searchInfo.total"
-				@size-change="handleSizeChange"
-				@current-change="handleCurrentChange"
-			/>
+			<Pagination v-model="searchInfo" @change="_handleSearch" />
 		</div>
 	</div>
 </template>
 
 <script setup lang='ts'>
-import { reactive, ref, onMounted, computed } from "vue"
+import { ref, onMounted } from "vue"
 import { formatDate, getTableHeight } from "@/utils";
-const searchInfo = reactive({
-	name: "",
-	type: "",
-	current: 1,
-	size: 10,
-	total: 0,
-})
-const typeOptions = ref([
+import Global from "@/customStore/Global";
+import { CascaderOption } from 'element-plus'
+function searchInit (): TemplateSearch {
+	return {
+		name: "",
+		type: "",
+		time: null,
+		tree: null,
+		current: 1,
+		size: 20,
+		total: 0,
+	}
+}
+const searchInfo = ref<TemplateSearch>(searchInit())
+const typeOptions: DictBase[] = [
 	{
 		label: "选项1",
 		value: 1,
@@ -64,19 +70,48 @@ const typeOptions = ref([
 		label: "选项2",
 		value: 2,
 	},
-])
-const tableData = ref<PhoneData[]>([])
-function handleSearch () {
-	console.log('%csearchInfo', 'color: green;', searchInfo)
-}
-function handleReset () {}
-function handleSizeChange (val: number) {
-  console.log(`${val} items per page`)
-}
-function handleCurrentChange (val: number) {
-  console.log(`current page: ${val}`)
-}
+]
+const treeOptions: CascaderOption[] = [
+	{
+		label: "选项1",
+		value: '1',
+		children: [
+			{
+				label: "选项1子1",
+				value: '1-1',
+				children: [
+					{
+						label: "选项1子1孙1",
+						value: '1-1-1',
+					}
+				]
+			},
+			{
+				label: "选项1子2",
+				value: '1-2',
+			},
+		]
+	},
+	{
+		label: "选项2",
+		value: '2',
+	},
+]
+const datetimerange = Global.common.datetimerange
+const disabledFutureDate = Global.common.disabledFutureDate
 onMounted(() => {
+	handleSearch()
+})
+const tableData = ref<TemplateData[]>([])
+function handleSearch () {
+	console.log('%csearchInfo', 'color: green;', searchInfo.value)
+	_handleSearch()
+}
+function handleReset () {
+	searchInfo.value = searchInit()
+	handleSearch()
+}
+function _handleSearch() {
 	for (let index = 0; index < 20; index++) {
 		tableData.value = tableData.value.concat({
 			date: formatDate(Date.now() - index * 20 * 60 * 60 * 1000),
@@ -84,11 +119,8 @@ onMounted(() => {
 			address: `地址${index + 1}`
 		})
 	}
-})
+}
 </script>
 
 <style lang="scss" scoped>
-.phone-group{
-	
-}
 </style>

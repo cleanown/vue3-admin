@@ -8,6 +8,19 @@ let baseRoutes: RouteRecordRaw[] = [
 
 export const addRoutes: RouteRecordRaw[] = [
 	{ 
+		path: '/home',
+		component: Layout,
+		meta: { title: "首页", icon: "House", alwaysShow: false },
+		redirect: "/home/index",
+		children: [
+			{
+				path: "index",
+				component: () => import("@/views/home/index.vue"),
+				meta: { title: "首页", icon: "House"},
+			},
+		]
+	},
+	{ 
 		path: '/phone',
 		component: Layout,
 		meta: { title: "云机管理", icon: "Cellphone"},
@@ -15,31 +28,21 @@ export const addRoutes: RouteRecordRaw[] = [
 		children: [
 			{
 				path: "group",
-				component: () => import("@/views/phone/group.vue"),
+				component: () => import("@/views/template/index.vue"),
 				meta: { title: "云机组列表", icon: "Memo"},
-			},
-			{
-				path: "list",
-				component: () => import("@/views/phone/list.vue"),
-				meta: { title: "云机列表", icon: "Tickets"},
 			},
 		]
 	},
 	{ 
-		path: '/proxy',
+		path: '/template',
 		component: Layout,
-		meta: { title: "代理管理", icon: "Switch"},
-		redirect: "/proxy/list",
+		meta: { title: "模板", icon: "Switch", alwaysShow: false},
+		redirect: "/template/index",
 		children: [
 			{
-				path: "list",
-				component: () => import("@/views/proxy/list.vue"),
-				meta: { title: "云机组列表", icon: "TakeawayBox"},
-			},
-			{
-				path: "domain",
-				component: () => import("@/views/proxy/domain.vue"),
-				meta: { title: "域名统计", icon: "Coin"},
+				path: "index",
+				component: () => import("@/views/template/index.vue"),
+				meta: { title: "模板", icon: "TakeawayBox"},
 			},
 		]
 	},

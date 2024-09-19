@@ -1,5 +1,8 @@
 <template>
-	<el-sub-menu class="silebar-item" :class="{ 'sub-menu-active': isSubMenuActive }" v-if="menuItem.children && menuItem.children.length" :index="basePath">
+	<div v-if="menuItem.meta.alwaysShow == false">
+		<SidebarItem v-for="(childItem, childIndex) in menuItem.children" :menuItem="childItem" :basePath="basePath" :key="childIndex" />
+	</div>
+	<el-sub-menu class="silebar-item" :class="{ 'sub-menu-active': isSubMenuActive }" v-else-if="menuItem.children && menuItem.children.length" :index="basePath">
 		<template #title>
 			<el-icon><component :is="menuInfo.meta.icon"/></el-icon>
 			<span>{{menuInfo.meta.title}}</span>
