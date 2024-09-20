@@ -39,7 +39,7 @@ const handleCollapseChaneg = () => {
 	layoutDataP.isCollapse = !layoutDataP.isCollapse
 }
 const routeList = computed(() => {
-	return route.matched
+	return route.matched.filter(item => item.meta.alwaysShow != false)
 })
 const userMenu = reactive([
 	{
