@@ -8,7 +8,9 @@
 		"paths": {
 			"@/*": ["src/*"]
 		},
-		"types": ["element-plus/global", "vite/client"]
+		"types": ["element-plus/global", "vite/client"],
+		"noEmit": true,
+		"skipLibCheck": true
 	},
 	"include": ["src", "types"],
   // "files": [],
