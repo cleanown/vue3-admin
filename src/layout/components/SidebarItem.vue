@@ -1,20 +1,25 @@
 <template>
 	<div v-if="menuItem.meta.alwaysShow == false">
-		<SidebarItem v-for="(childItem, childIndex) in menuItem.children" :menuItem="childItem" :basePath="basePath" :key="childIndex" />
+		<SidebarItem v-for="(childItem, childIndex) in menuItem.children" :menuItem="childItem" :basePath="basePath"
+			:key="childIndex" />
 	</div>
-	<el-sub-menu class="silebar-item" :class="{ 'sub-menu-active': isSubMenuActive }" v-else-if="menuItem.children && menuItem.children.length" :index="basePath">
+	<el-sub-menu class="silebar-item" :class="{ 'sub-menu-active': isSubMenuActive }"
+		v-else-if="menuItem.children && menuItem.children.length" :index="basePath">
 		<template #title>
-			<el-icon><component :is="menuInfo.meta.icon"/></el-icon>
+			<el-icon>
+				<component :is="menuInfo.meta.icon" />
+			</el-icon>
 			<span>{{menuInfo.meta.title}}</span>
 		</template>
-		<SidebarItem v-for="(childItem, childIndex) in menuItem.children" :menuItem="childItem" :basePath="basePath" :key="childIndex" />
+		<SidebarItem v-for="(childItem, childIndex) in menuItem.children" :menuItem="childItem" :basePath="basePath"
+			:key="childIndex" />
 	</el-sub-menu>
 	<el-menu-item :class="{ 'menu-item-active': isMenuItemActive }" v-else :index="resolvePath(menuInfo.path)">
+		<el-icon>
+			<component :is="menuInfo.meta.icon" />
+		</el-icon>
 		<template #title>
-			<div style="width: 100%;" @click="handleTo(resolvePath(menuInfo.path))">
-				<el-icon><component :is="menuInfo.meta.icon"/></el-icon>
-				<span>{{menuInfo.meta.title}}</span>
-			</div>
+			<div class="full-content" @click="handleTo(resolvePath(menuInfo.path))">{{ menuInfo.meta.title }}</div>
 		</template>
 	</el-menu-item>
 </template>
