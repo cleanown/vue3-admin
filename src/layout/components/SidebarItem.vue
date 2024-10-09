@@ -15,7 +15,7 @@
 			:key="childIndex" />
 	</el-sub-menu>
 	<el-menu-item :class="{ 'menu-item-active': isMenuItemActive }" v-else :index="resolvePath(menuInfo.path)">
-		<el-icon>
+		<el-icon @click="handleTo(resolvePath(menuInfo.path))">
 			<component :is="menuInfo.meta.icon" />
 		</el-icon>
 		<template #title>
