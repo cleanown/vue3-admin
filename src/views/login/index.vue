@@ -29,7 +29,7 @@ import logoImg from "@/assets/images/common/logo.gif"
 import { FormInstance, FormRules, ElMessage } from "element-plus"
 import { validatePassword } from "@/utils/validate"
 import Global from "@/customStore/Global"
-import { auth } from "@/api/user"
+// import { auth } from "@/api/user"
 const isLoading = ref(false)
 const particlesOptions = reactive({
 	background: {
@@ -107,13 +107,13 @@ let formData = reactive<RuleForm>({
 	password: import.meta.env.MODE === 'development' ? "admin123456" : "",
 })
 const rules = reactive<FormRules<RuleForm>>({
-	username: [
-		{ required: true, message: "请输入账号", trigger: "blur"},
-	],
-	password: [
-		{ required: true, message: "请输入密码", trigger: "blur"},
-		{ validator: validatePassword, trigger: "blur"},
-	],
+	// username: [
+	// 	{ required: true, message: "请输入账号", trigger: "blur"},
+	// ],
+	// password: [
+	// 	{ required: true, message: "请输入密码", trigger: "blur"},
+	// 	{ validator: validatePassword, trigger: "blur"},
+	// ],
 })
 async function handleConfirm (formEl: FormInstance | undefined) {
 	if (!formEl) return

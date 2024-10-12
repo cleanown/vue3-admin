@@ -17,13 +17,13 @@
 			</div>
 			<div class="list-search-item">
 				<div class="search-label">时间：</div>
-				<el-date-picker class="search-time" v-model="searchInfo.time" type="datetimerange" unlink-panels range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间" value-format="YYYY-MM-DD HH:mm:ss" :shortcuts="datetimerange" :disabled-date="disabledFutureDate" @change="handleSearch" />
+				<el-date-picker class="search-time" v-model="searchInfo.date" type="datetimerange" unlink-panels range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间" value-format="YYYY-MM-DD HH:mm:ss" :shortcuts="datetimerange" :disabled-date="disabledFutureDate" @change="handleSearch" />
 			</div>
 			<el-button class="list-search-btn" type="primary" size="default" @click="handleSearch">搜索</el-button>
 			<el-button class="list-search-btn" type="primary" size="default" @click="handleReset">重置</el-button>
 		</div>
 		<div class="list-content">
-			<el-table :data="tableData" :max-height="getTableHeight()">
+			<el-table :data="tableData" v-loading="isTableLoading" :max-height="tableHeight">
 				<el-table-column prop="date" label="日期" :min-width="200" show-overflow-tooltip fixed />
 				<el-table-column prop="name" label="名称" :min-width="200" show-overflow-tooltip />
 				<el-table-column prop="address" label="地址" :min-width="200" show-overflow-tooltip />
@@ -46,14 +46,16 @@
 
 <script setup lang='ts'>
 import { ref, onMounted } from "vue"
-import { formatDate, getTableHeight } from "@/utils";
+import { formatDate } from "@/utils";
 import Global from "@/customStore/Global";
 import { CascaderOption } from 'element-plus'
+import { useTableHeight } from "@/hook/tableHeight";
+const { tableHeight } = useTableHeight()
 function searchInit (): TemplateSearch {
 	return {
 		name: "",
 		type: "",
-		time: null,
+		date: null,
 		tree: null,
 		current: 1,
 		size: 20,
@@ -103,6 +105,7 @@ onMounted(() => {
 	handleSearch()
 })
 const tableData = ref<TemplateData[]>([])
+const isTableLoading = ref(false)
 function handleSearch () {
 	console.log('%csearchInfo', 'color: green;', searchInfo.value)
 	_handleSearch()
@@ -112,6 +115,8 @@ function handleReset () {
 	handleSearch()
 }
 function _handleSearch() {
+	isTableLoading.value = true
+	tableData.value = []
 	for (let index = 0; index < 20; index++) {
 		tableData.value = tableData.value.concat({
 			date: formatDate(Date.now() - index * 20 * 60 * 60 * 1000),
@@ -119,6 +124,9 @@ function _handleSearch() {
 			address: `地址${index + 1}`
 		})
 	}
+	setTimeout(() => {
+		isTableLoading.value = false
+	}, 1500)
 }
 </script>
 

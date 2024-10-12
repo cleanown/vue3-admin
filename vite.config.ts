@@ -4,6 +4,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: process.env.NODE_ENV == "production" ? "/admintemplate/" : "",
   plugins: [vue()],
   server: {
     port: 8528,
@@ -12,7 +13,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src")
-    }
-  }
-})
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
+});

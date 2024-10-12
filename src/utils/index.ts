@@ -92,24 +92,23 @@ export function jsonToFormData (params: object) : string {
   }
   return str.slice(1)
 }
+//防抖
+export function debounce<T extends (...args: any[]) => void>(func: T, wait: number): T {
+  let timeout: ReturnType<typeof setTimeout> | null;
+
+  return function (...args: Parameters<T>) {
+    if (timeout) clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      func.apply(this, args);
+    }, wait);
+  } as T;
+}
 /**
- * 计算获取当前表格适合的高度(用于默认版型，如果有其他元素，则自己自定义高度)
- * 其中60是.list的padding-bottom 20 加上.list-content padding-top 20 和 padding_bottom 20
- * @param offsetHeight 高度偏移量
+ * 生成随机数值
+ * @param bit 
  * @returns 
  */
-export function getTableHeight (offsetHeight: number = 0) : number | string {
-  const tableDom = document.getElementsByClassName("list-content")[0]
-  if (tableDom) {
-    let pagerDomRectHeight = 0
-    const tableDomRect = tableDom.getBoundingClientRect()
-    const pagerDom = document.getElementsByClassName("list-pager")[0]
-    if (pagerDom) {
-      const pagerDomRect = pagerDom.getBoundingClientRect()
-      pagerDomRectHeight = pagerDomRect.height
-    }
-    return window.innerHeight - tableDomRect.top - pagerDomRectHeight - 60 - offsetHeight
-  } else {
-    return "100%"
-  }
+export function randomNum(bit: number = 5): number {
+	return Math.floor(Math.random() * Math.pow(10, bit))
 }

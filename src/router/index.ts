@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter, RouteRecordRaw } from "vue-router"
+import { createRouter, RouteRecordRaw, createWebHashHistory } from "vue-router"
 import Layout from "@/layout/index.vue"
 import Global from "@/customStore/Global"
 
@@ -52,7 +52,7 @@ baseRoutes.unshift({ path: '/', redirect: addRoutes[0].path })
 const routes: RouteRecordRaw[] = [...baseRoutes, ...addRoutes]
 
 const router = createRouter({
-	history: createWebHistory(),
+	history: createWebHashHistory(),
 	routes
 })
 
