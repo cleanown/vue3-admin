@@ -1,5 +1,5 @@
 <template>
-	<el-dialog  v-model="visible" :title="`${itemInfo && itemInfo.id ? '编辑' : '添加'}配置`" width="500px" :close-on-click-modal="false" :close-on-press-escape="false" :before-close="() => handleClose()">
+	<el-dialog  v-model="visible" :title="`${itemInfo && itemInfo.id ? '编辑' : '添加'}配置`" width="1000px" :close-on-click-modal="false" :close-on-press-escape="false" :before-close="() => handleClose()">
     <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="auto">
 			<el-form-item label="名称" prop="name">
 				<el-input v-model="ruleForm.name" placeholder="请输入名称" clearable />
@@ -23,7 +23,7 @@
 				</el-checkbox-group>
 			</el-form-item>
 			<el-form-item label="富文本" prop="tinymce">
-				<Tinymce v-model="ruleForm.tinymce" />
+				<Tinymce class="full-content" v-model="ruleForm.tinymce" />
 			</el-form-item>
 			<el-form-item label="更新时间" prop="updateTime">
 				<el-date-picker v-model="ruleForm.updateTime" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="选择日期" />
@@ -137,6 +137,7 @@ function handleClose (formEl: FormInstance | undefined = undefined) {
 	ruleForm.value = initRuleForm()
 }
 function handleConfirm (formEl: FormInstance | undefined = undefined) {
+	console.log('%cruleForm', 'color: green;', ruleForm.value)
 	if (!formEl) return
 	formEl.validate((valid) => {
 		if (valid) {
