@@ -21,34 +21,37 @@
 			</div>
 			<el-button class="list-search-btn" type="primary" size="default" @click="handleSearch">搜索</el-button>
 			<el-button class="list-search-btn" type="primary" size="default" @click="handleReset">重置</el-button>
+			<el-button class="list-search-btn" type="primary" size="default" @click="handleAdd">添加</el-button>
 		</div>
 		<div class="list-content">
 			<el-table :data="tableData" v-loading="isTableLoading" :max-height="tableHeight">
-				<el-table-column prop="date" label="日期" :min-width="200" show-overflow-tooltip fixed />
+				<el-table-column prop="id" label="ID" :min-width="200" show-overflow-tooltip fixed />
 				<el-table-column prop="name" label="名称" :min-width="200" show-overflow-tooltip />
-				<el-table-column prop="address" label="地址" :min-width="200" show-overflow-tooltip />
-				<el-table-column prop="address" label="地址" :min-width="200" show-overflow-tooltip />
-				<el-table-column prop="address" label="地址" :min-width="200" show-overflow-tooltip />
-				<el-table-column prop="address" label="地址" :min-width="200" show-overflow-tooltip />
-				<el-table-column prop="address" label="地址" :min-width="200" show-overflow-tooltip />
-				<el-table-column prop="address" label="地址" :min-width="200" show-overflow-tooltip />
+				<el-table-column prop="type" label="类型" :min-width="200" show-overflow-tooltip />
+				<el-table-column prop="level" label="层级" :min-width="200" show-overflow-tooltip />
+				<el-table-column prop="radio" label="单选" :min-width="200" show-overflow-tooltip />
+				<el-table-column prop="check" label="多选" :min-width="200" show-overflow-tooltip />
+				<el-table-column prop="updateTime" label="更新时间" :min-width="200" show-overflow-tooltip />
+				<el-table-column prop="createTime" label="创建时间" :min-width="200" show-overflow-tooltip />
 				<el-table-column label="操作" align="center" :min-width="150" fixed="right">
 					<template #default="scoped">
-						<el-button type="primary" size="small" @click="">详情</el-button>
-						<el-button type="primary" size="small" @click="">删除</el-button>
+						<el-button type="primary" size="small" @click="handleEdit(scoped.row)">编辑</el-button>
+						<el-button type="primary" size="small" @click="handleDel(scoped.row)">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
 			<Pagination v-model="searchInfo" @change="_handleSearch" />
 		</div>
+		<TemplateEdit v-model:visible="isTemplateEdit" v-model:item-info="itemInfo" />
 	</div>
 </template>
 
 <script setup lang='ts'>
 import { ref, onMounted } from "vue"
-import { formatDate } from "@/utils";
+import { formatDate, randomNum, randomStr } from "@/utils";
 import Global from "@/customStore/Global";
-import { CascaderOption } from 'element-plus'
+import TemplateEdit from './components/TemplateEdit.vue'
+import { CascaderOption, ElMessageBox } from 'element-plus'
 import { useTableHeight } from "@/hook/tableHeight";
 const { tableHeight } = useTableHeight()
 function searchInit (): TemplateSearch {
@@ -119,14 +122,37 @@ function _handleSearch() {
 	tableData.value = []
 	for (let index = 0; index < 20; index++) {
 		tableData.value = tableData.value.concat({
-			date: formatDate(Date.now() - index * 20 * 60 * 60 * 1000),
-			name: `测试测试测试测试测试测试测试测试测试测试测试测试测试测试${index + 1}`,
-			address: `地址${index + 1}`
+			id: randomNum(),
+			type: index%3 + 1,
+			radio: index%3 + 1,
+			level: ['1', '1-1', '1-1-1'],
+			check: [1,2],
+			name: randomStr(),
+			updateTime: formatDate(Date.now() - index * 20 * 60 * 60 * 1000),
+			createTime: formatDate(Date.now() - index * 20 * 60 * 60 * 1000),
 		})
 	}
 	setTimeout(() => {
 		isTableLoading.value = false
 	}, 1500)
+}
+
+const isTemplateEdit = ref(false)
+const itemInfo = ref<TemplateData | null>(null)
+function handleAdd () {
+	isTemplateEdit.value = true
+}
+function handleEdit (row: TemplateData) {
+	itemInfo.value = row
+	isTemplateEdit.value = true
+}
+function handleDel (row: TemplateData) {
+	ElMessageBox.confirm(`删除该项，是否继续？`,"提示", {
+		confirmButtonText: "确定",
+		cancelButtonText: "取消",
+		type: "warning"
+	}).then(() => {
+	}).catch(() => {})
 }
 </script>
 

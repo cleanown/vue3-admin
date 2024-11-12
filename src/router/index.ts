@@ -21,15 +21,15 @@ export const addRoutes: RouteRecordRaw[] = [
 		]
 	},
 	{ 
-		path: '/phone',
+		path: '/list',
 		component: Layout,
-		meta: { title: "云机管理", icon: "Cellphone"},
-		redirect: "/phone/group",
+		meta: { title: "列表管理", icon: "Cellphone"},
+		redirect: "/list/index",
 		children: [
 			{
-				path: "group",
+				path: "index",
 				component: () => import("@/views/template/index.vue"),
-				meta: { title: "云机组列表", icon: "Memo"},
+				meta: { title: "列表", icon: "Memo"},
 			},
 		]
 	},

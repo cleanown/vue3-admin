@@ -5,7 +5,13 @@ type TemplateSearch = SearchBase & {
 	date: string[] | null,
 }
 type TemplateData = {
-	name: string,
-	date: string,
-	address: string,
+	id?: string | number;
+	name?: string;
+	type?: string | number;
+	radio?: string | number;
+	check?: (string | number)[];
+	level?: (string | number)[];
+	tinymce?: string;
+	updateTime?: string;
+	createTime?: string;
 }
