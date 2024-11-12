@@ -73,4 +73,7 @@ function localImageView(file: File, cb?: (row: string) => void) {
 		content: '';
 	}
 }
+:deep(.tox-statusbar__branding) {
+	display: none;
+}
 </style>
