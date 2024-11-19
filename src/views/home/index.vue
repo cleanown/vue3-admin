@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<el-button class="mgt_10" type="primary" @click="handleTo('/login')">登录</el-button>
 		<el-button class="mgt_10" type="primary" @click="handleTo('/test')">测试</el-button>
 	</div>
 </template>

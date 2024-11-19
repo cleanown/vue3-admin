@@ -27,6 +27,11 @@
 			<el-table :data="tableData" v-loading="isTableLoading" :max-height="tableHeight">
 				<el-table-column prop="id" label="ID" :min-width="200" show-overflow-tooltip fixed />
 				<el-table-column prop="name" label="名称" :min-width="200" show-overflow-tooltip />
+				<el-table-column prop="img" label="头像" :width="100" align="center" show-overflow-tooltip >
+					<template #default="scoped">
+						<img class="table-img hover-opacity" :src="scoped.row.img" alt="加载失败" @click="handleImgView(scoped.row.img)">
+					</template>
+				</el-table-column>
 				<el-table-column prop="type" label="类型" :min-width="200" show-overflow-tooltip />
 				<el-table-column prop="level" label="层级" :min-width="200" show-overflow-tooltip />
 				<el-table-column prop="radio" label="单选" :min-width="200" show-overflow-tooltip />
@@ -43,6 +48,7 @@
 			<Pagination v-model="searchInfo" @change="_handleSearch" />
 		</div>
 		<TemplateEdit v-model:visible="isTemplateEdit" v-model:item-info="itemInfo" />
+		<ImageView v-model:visible="isImageView" v-bind:img-list="[activeImg]" />
 	</div>
 </template>
 
@@ -54,6 +60,8 @@ import TemplateEdit from './components/TemplateEdit.vue'
 import { CascaderOption, ElMessageBox } from 'element-plus'
 import { useTableHeight } from "@/hook/tableHeight";
 const { tableHeight } = useTableHeight()
+import ImageView from "@/components/Upload/ImageView.vue"
+
 function searchInit (): TemplateSearch {
 	return {
 		name: "",
@@ -104,6 +112,14 @@ const treeOptions: CascaderOption[] = [
 ]
 const datetimerange = Global.common.datetimerange
 const disabledFutureDate = Global.common.disabledFutureDate
+
+const isImageView = ref(false)
+const activeImg = ref('')
+function handleImgView(url: string) {
+	activeImg.value = url
+	isImageView.value = true
+}
+
 onMounted(() => {
 	handleSearch()
 })
@@ -123,6 +139,7 @@ function _handleSearch() {
 	for (let index = 0; index < 20; index++) {
 		tableData.value = tableData.value.concat({
 			id: randomNum(),
+			img: "https://file.cleblog.cn/avatar.gif",
 			type: index%3 + 1,
 			radio: index%3 + 1,
 			level: ['1', '1-1', '1-1-1'],

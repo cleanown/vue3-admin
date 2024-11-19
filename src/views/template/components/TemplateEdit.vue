@@ -4,6 +4,10 @@
 			<el-form-item label="名称" prop="name">
 				<el-input v-model="ruleForm.name" placeholder="请输入名称" clearable />
 			</el-form-item>
+			<el-form-item label="图片" prop="img">
+				<el-input v-model="ruleForm.img" placeholder="请输入图片" clearable />
+				<ImgUpload class="mgt_10" v-model="ruleForm.img" />
+			</el-form-item>
 			<el-form-item label="类型" prop="type">
 				<el-select v-model="ruleForm.type" placeholder="请选择类型" clearable filterable>
 					<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -31,7 +35,7 @@
 		</el-form>
     <template #footer>
 			<el-button @click="handleClose(ruleFormRef)">取 消</el-button>
-			<el-button type="primary" @click="handleConfirm(ruleFormRef)">确 认</el-button>
+			<el-button type="primary" :loading="isConfirmLoading" @click="handleConfirm(ruleFormRef)">确 认</el-button>
     </template>
   </el-dialog>
 </template>
@@ -41,9 +45,11 @@ import { modiflyData } from '@/utils';
 import { CascaderOption, FormInstance, FormRules } from 'element-plus';
 import { reactive, ref, watch } from 'vue';
 import Tinymce from "@/components/Tinymce/index.vue"
+import ImgUpload from "@/components/Upload/Image.vue"
 
 const visible = defineModel<boolean>('visible', {default: false})
 const itemInfo = defineModel<TemplateData | null>('itemInfo', {default: null})
+const isConfirmLoading = ref(false)
 
 const options = ref(
 	[
@@ -92,6 +98,7 @@ const ruleFormRef = ref<FormInstance>()
 function initRuleForm(): TemplateData {
 	return {
 		name: '',
+		img: '',
 		type: '',
 		level: [],
 		radio: '',
@@ -104,6 +111,9 @@ const ruleForm = ref<TemplateData>(initRuleForm())
 const rules = reactive<FormRules<TemplateData>>({
 	name: [
 		{ required: true, message: '请输入名称', trigger: 'blur' },
+	],
+	img: [
+		{ required: true, message: '请上传图片', trigger: 'blur' },
 	],
 	type: [
 		{ required: true, message: '请选择类型', trigger: 'change' },
@@ -146,8 +156,10 @@ function handleConfirm (formEl: FormInstance | undefined = undefined) {
 	})
 }
 function clearValidate () {
-	if (ruleFormRef) {
-		ruleFormRef.value?.clearValidate()
-	}
+	setTimeout(() => {
+		if (ruleFormRef) {
+			ruleFormRef.value?.clearValidate()
+		}
+	})
 }
 </script>

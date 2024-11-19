@@ -6,6 +6,7 @@ type TemplateSearch = SearchBase & {
 }
 type TemplateData = {
 	id?: string | number;
+	img: string;
 	name?: string;
 	type?: string | number;
 	radio?: string | number;
