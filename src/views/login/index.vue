@@ -4,7 +4,7 @@
 		<div class="login-content">
 			<div class="login-header">
 				<el-avatar :size="50" :src="logoImg" />
-				<span class="login-title pdl_10">项目模板</span>
+				<span class="login-title pdl_10">后台管理模板</span>
 			</div>
 			<el-form class="login-form" :model="formData" ref="formRef" :rules="rules" label-width="60px">
 				<el-form-item label="账号" prop="username">
@@ -15,7 +15,7 @@
 				</el-form-item>
 			</el-form>
 			<div class="login-btn">
-				<el-button class="full-content" type="primary" @click="handleConfirm(formRef)" :loading="isConfirmLoading">登 录</el-button>
+				<el-button class="full-content" type="primary" @click="handleConfirm(formRef)" :loading="isConfirmLoading">登 录(直接点)</el-button>
 			</div>
 		</div>
 	</div>

@@ -2,18 +2,26 @@ export default class ModuleCommon {
 	constructor() {}
 	otherLink: OtherLink[] = [
 		{
-			name: "百度1",
-			url: "https://www.baidu.com",
+			name: "博客",
+			url: "https://www.cleblog.cn",
 			loginUrl: "",
 			isAutoLogin: false,
 			username: "",
 			password: "",
 		},
 		{
-			name: "百度2",
+			name: "后台管理模板",
+			url: "https://admintemplate.cleblog.cn",
+			loginUrl: "",
+			isAutoLogin: false,
+			username: "",
+			password: "",
+		},
+		{
+			name: "百度",
 			children: [
 				{
-					name: "百度2-1",
+					name: "百度2.0",
 					url: "https://www.baidu.com",
 					loginUrl: "",
 					isAutoLogin: false,
@@ -21,7 +29,7 @@ export default class ModuleCommon {
 					password: "",
 				},
 				{
-					name: "百度2-2",
+					name: "百度1.0",
 					url: "https://www.baidu.com",
 					loginUrl: "",
 					isAutoLogin: false,
@@ -81,4 +89,31 @@ export default class ModuleCommon {
 	disabledFutureDate (time: Date) {
 		return time.getTime() > Date.now()
 	}
+	countryOption = [
+		{
+			label: '巴西',
+			value: 'ptBR',
+			url: '/home/ptBR',
+		},
+		{
+			label: '印度',
+			value: 'enUS',
+			url: '/home/enUS',
+		},
+		{
+			label: '印尼',
+			value: 'inID',
+			url: '/home/inID',
+		},
+		{
+			label: '越南',
+			value: 'viVN',
+			url: '/home/viVN',
+		},
+		{
+			label: '墨西哥',
+			value: 'exMX',
+			url: '/home/exMX',
+		},
+	]
 }

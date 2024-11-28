@@ -2,7 +2,7 @@
 	<div class="sidebar">
 		<div class="sidebar-header">
 			<el-avatar :size="40" :src="logoImg" />
-			<span v-if="!layoutDataP.isCollapse" class="sidebar-title">模板项目</span>
+			<span v-if="!layoutDataP.isCollapse" class="sidebar-title">模板后台管理</span>
 		</div>
 		<el-menu class="el-menu-vertical" mode="vertical" :default-active="defaultActive" :collapse="layoutDataP.isCollapse">
 			<SidebarItem v-for="(item, index) in menuTree" :basePath="item.path" :menuItem="item" :key="index" />

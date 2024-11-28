@@ -33,19 +33,19 @@ export const addRoutes: RouteRecordRaw[] = [
 			},
 		]
 	},
-	{ 
-		path: '/template',
-		component: Layout,
-		meta: { title: "模板", icon: "Switch", alwaysShow: false},
-		redirect: "/template/index",
-		children: [
-			{
-				path: "index",
-				component: () => import("@/views/template/index.vue"),
-				meta: { title: "模板", icon: "TakeawayBox"},
-			},
-		]
-	},
+	// { 
+	// 	path: '/template',
+	// 	component: Layout,
+	// 	meta: { title: "模板", icon: "Switch", alwaysShow: false},
+	// 	redirect: "/template/index",
+	// 	children: [
+	// 		{
+	// 			path: "index",
+	// 			component: () => import("@/views/template/index.vue"),
+	// 			meta: { title: "模板", icon: "TakeawayBox"},
+	// 		},
+	// 	]
+	// },
 ]
 
 baseRoutes.unshift({ path: '/', redirect: addRoutes[0].path })
