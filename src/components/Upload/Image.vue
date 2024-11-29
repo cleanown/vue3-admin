@@ -8,7 +8,7 @@
 			</div>
 		</div>
 		<div class="upload-btn" v-else v-loading="isLoading" element-loading-background="rgba(122, 122, 122, 0)">
-			<input class="upload-inp" type="file" @change="handleFileChange" />
+			<input class="upload-inp" type="file" accept="image/*" @change="handleFileChange" />
 			<el-icon><Plus /></el-icon>
 		</div>
 		<ImageView v-model:visible="isImageView" :img-index="imgIndex" :img-list="imgList" />
