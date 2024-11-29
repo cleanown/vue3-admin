@@ -118,6 +118,7 @@ function handleView () {
 		user-select: none;
 		border: 1px dashed #ccc;
 		border-radius: 5px;
+		overflow: hidden;
 		&:hover{
 			border-color: #409eff;
 			color: #409eff;
