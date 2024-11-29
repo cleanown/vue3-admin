@@ -42,7 +42,7 @@ function handleFileChange (e: Event) {
 async function _upload(file: File) {
 	isLoading.value = true
 	setTimeout(() => {
-		model.value = 'https://file.cleblog.cn/avatar.gif'
+		model.value = 'https://cdn.cleblog.cn/avatar.gif'
 		isLoading.value = false
 	}, 1000)
 }

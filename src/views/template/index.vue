@@ -139,7 +139,7 @@ function _handleSearch() {
 	for (let index = 0; index < 20; index++) {
 		tableData.value = tableData.value.concat({
 			id: randomNum(),
-			img: "https://file.cleblog.cn/avatar.gif",
+			img: "https://cdn.cleblog.cn/avatar.gif",
 			type: index%3 + 1,
 			radio: index%3 + 1,
 			level: ['1', '1-1', '1-1-1'],
