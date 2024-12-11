@@ -1,9 +1,11 @@
 import { createRouter, RouteRecordRaw, createWebHashHistory } from "vue-router"
 import Layout from "@/layout/index.vue"
 import Global from "@/customStore/Global"
+import NotFound from "@/views/error/index.vue"
 
 let baseRoutes: RouteRecordRaw[] = [
 	{ path: '/login', component: () => import("@/views/login/index.vue") },
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
 
 export const addRoutes: RouteRecordRaw[] = [
