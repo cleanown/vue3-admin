@@ -43,10 +43,12 @@ export default class VersionCheck {
 			if (localVersion) {
 				if (String(onlineVersion) != localVersion) {
 					this.cacheClear()
-					localStorage.setItem(this.versionKey, String(onlineVersion))
-					setTimeout(() => {
-						window.location.reload()
-					}, 200);
+					if (confirm('检测到新版本，是否更新')) {
+						localStorage.setItem(this.versionKey, String(onlineVersion))
+						setTimeout(() => {
+							window.location.reload()
+						}, 200);
+					}
 				}
 			} else {
 				localStorage.setItem(this.versionKey, String(onlineVersion))
@@ -77,8 +79,9 @@ export default class VersionCheck {
 		console.log('%cerror：', 'color: red;', event)
 		if (event.reason && event.reason.message.includes('Failed to fetch dynamically imported module')) {
 			this.cacheClear()
-			alert('站点已更新，刷新页面？')
-			window.location.reload()
+			if (confirm('检测到新版本，是否更新')) {
+				window.location.reload()
+			}
 		}
 	}
 	cacheClear () {
