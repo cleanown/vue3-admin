@@ -11,6 +11,9 @@ export default class VersionCheck {
 	durationTime = 60 * 1000
 
 	startTask() {
+		if (import.meta.env.MODE === 'development') {
+			return
+		}
 		this.stopTask()
 		this.isTask = true
 		this.checkVersion()
