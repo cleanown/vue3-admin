@@ -1,4 +1,4 @@
-# Vue 3 + TypeScript + Vite
+# 基于 Vue 3 + TypeScript + Vite + Element Plus构建的后台管理模板
 
 该项目由nodejs20.15.1构建
 
