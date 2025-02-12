@@ -42,7 +42,7 @@
 
 <script setup lang='ts'>
 import { modiflyData } from '@/utils';
-import { CascaderOption, FormInstance, FormRules } from 'element-plus';
+import { CascaderOption, ElMessage, FormInstance, FormRules } from 'element-plus';
 import { reactive, ref, watch } from 'vue';
 import Tinymce from "@/components/Tinymce/index.vue"
 import ImgUpload from "@/components/Upload/Image.vue"
@@ -152,6 +152,11 @@ function handleConfirm (formEl: FormInstance | undefined = undefined) {
 	formEl.validate((valid) => {
 		if (valid) {
 			//去调用接口
+		} else {
+			ElMessage({
+				type: 'warning',
+				message: "请完善表单信息"
+			})
 		}
 	})
 }
