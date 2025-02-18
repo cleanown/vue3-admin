@@ -62,18 +62,13 @@ import { useTableHeight } from "@/hook/tableHeight";
 const { tableHeight } = useTableHeight()
 import ImageView from "@/components/Upload/ImageView.vue"
 
-function searchInit (): TemplateSearch {
-	return {
-		name: "",
-		type: "",
-		date: null,
-		tree: null,
-		current: 1,
-		size: 20,
-		total: 0,
-	}
+const isImageView = ref(false)
+const activeImg = ref('')
+function handleImgView(url: string) {
+	activeImg.value = url
+	isImageView.value = true
 }
-const searchInfo = ref<TemplateSearch>(searchInit())
+
 const typeOptions: DictBase[] = [
 	{
 		label: "选项1",
@@ -113,16 +108,22 @@ const treeOptions: CascaderOption[] = [
 const datetimerange = Global.common.datetimerange
 const disabledFutureDate = Global.common.disabledFutureDate
 
-const isImageView = ref(false)
-const activeImg = ref('')
-function handleImgView(url: string) {
-	activeImg.value = url
-	isImageView.value = true
-}
-
 onMounted(() => {
 	handleSearch()
 })
+
+function searchInit (): TemplateSearch {
+	return {
+		name: "",
+		type: "",
+		date: null,
+		tree: null,
+		current: 1,
+		size: 20,
+		total: 0,
+	}
+}
+const searchInfo = ref<TemplateSearch>(searchInit())
 const tableData = ref<TemplateData[]>([])
 const isTableLoading = ref(false)
 function handleSearch () {
