@@ -137,22 +137,22 @@ function handleReset () {
 function _handleSearch() {
 	isTableLoading.value = true
 	tableData.value = []
-	for (let index = 0; index < 20; index++) {
-		tableData.value = tableData.value.concat({
-			id: randomNum(),
-			img: "https://cdn.cleblog.cn/avatar.gif",
-			type: index%3 + 1,
-			radio: index%3 + 1,
-			level: ['1', '1-1', '1-1-1'],
-			check: [1,2],
-			name: randomStr(),
-			updateTime: formatDate(Date.now() - index * 20 * 60 * 60 * 1000),
-			createTime: formatDate(Date.now() - index * 20 * 60 * 60 * 1000),
-		})
-	}
 	setTimeout(() => {
+		for (let index = 0; index < 20; index++) {
+			tableData.value = tableData.value.concat({
+				id: randomNum(),
+				img: "https://cdn.cleblog.cn/avatar.gif",
+				type: index%3 + 1,
+				radio: index%3 + 1,
+				level: ['1', '1-1', '1-1-1'],
+				check: [1,2],
+				name: randomStr(),
+				updateTime: formatDate(Date.now() - index * 20 * 60 * 60 * 1000),
+				createTime: formatDate(Date.now() - index * 20 * 60 * 60 * 1000),
+			})
+		}
 		isTableLoading.value = false
-	}, 1500)
+	}, 500)
 }
 
 const isTemplateEdit = ref(false)
