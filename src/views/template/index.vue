@@ -124,7 +124,7 @@ function searchInit (): TemplateSearch {
 	}
 }
 const searchInfo = ref<TemplateSearch>(searchInit())
-const tableData = ref<TemplateData[]>([])
+const tableData = ref<TemplateInfo[]>([])
 const isTableLoading = ref(false)
 function handleSearch () {
 	console.log('%csearchInfo', 'color: green;', searchInfo.value)
@@ -139,7 +139,7 @@ function _handleSearch() {
 	tableData.value = []
 	setTimeout(() => {
 		for (let index = 0; index < 20; index++) {
-			tableData.value = tableData.value.concat({
+			let itemData: TemplateInfo = {
 				id: randomNum(),
 				img: "https://cdn.cleblog.cn/avatar.gif",
 				type: index%3 + 1,
@@ -149,22 +149,23 @@ function _handleSearch() {
 				name: randomStr(),
 				updateTime: formatDate(Date.now() - index * 20 * 60 * 60 * 1000),
 				createTime: formatDate(Date.now() - index * 20 * 60 * 60 * 1000),
-			})
+			}
+			tableData.value = tableData.value.concat(itemData)
 		}
 		isTableLoading.value = false
 	}, 500)
 }
 
 const isTemplateEdit = ref(false)
-const itemInfo = ref<TemplateData | null>(null)
+const itemInfo = ref<TemplateInfo | null>(null)
 function handleAdd () {
 	isTemplateEdit.value = true
 }
-function handleEdit (row: TemplateData) {
+function handleEdit (row: TemplateInfo) {
 	itemInfo.value = row
 	isTemplateEdit.value = true
 }
-function handleDel (row: TemplateData) {
+function handleDel (row: TemplateInfo) {
 	ElMessageBox.confirm(`删除该项，是否继续？`,"提示", {
 		confirmButtonText: "确定",
 		cancelButtonText: "取消",

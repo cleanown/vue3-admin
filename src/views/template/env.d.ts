@@ -4,7 +4,7 @@ type TemplateSearch = SearchBase & {
 	tree: string[] | null,
 	date: string[] | null,
 }
-type TemplateData = {
+type TemplateInfo = {
 	id?: string | number;
 	img: string;
 	name?: string;

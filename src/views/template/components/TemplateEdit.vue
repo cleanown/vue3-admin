@@ -48,7 +48,7 @@ import Tinymce from "@/components/Tinymce/index.vue"
 import ImgUpload from "@/components/Upload/Image.vue"
 
 const visible = defineModel<boolean>('visible', {default: false})
-const itemInfo = defineModel<TemplateData | null>('itemInfo', {default: null})
+const itemInfo = defineModel<TemplateInfo | null>('itemInfo', {default: null})
 const isConfirmLoading = ref(false)
 
 const options = ref(
@@ -95,7 +95,7 @@ const treeOptions: CascaderOption[] = [
 ]
 
 const ruleFormRef = ref<FormInstance>()
-function initRuleForm(): TemplateData {
+function initRuleForm(): TemplateInfo {
 	return {
 		name: '',
 		img: '',
@@ -107,8 +107,8 @@ function initRuleForm(): TemplateData {
 		updateTime: '',
 	}
 }
-const ruleForm = ref<TemplateData>(initRuleForm())
-const rules = reactive<FormRules<TemplateData>>({
+const ruleForm = ref<TemplateInfo>(initRuleForm())
+const rules = reactive<FormRules<TemplateInfo>>({
 	name: [
 		{ required: true, message: '请输入名称', trigger: 'blur' },
 	],
