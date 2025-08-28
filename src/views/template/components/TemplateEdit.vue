@@ -5,7 +5,7 @@
 				<el-input v-model="ruleForm.name" placeholder="请输入名称" clearable />
 			</el-form-item>
 			<el-form-item label="图片" prop="img">
-				<el-input v-model="ruleForm.img" placeholder="请输入图片" clearable />
+				<el-input v-model="ruleForm.img" placeholder="请输入图片链接" clearable />
 				<ImgUpload class="mgt_10" v-model="ruleForm.img" />
 			</el-form-item>
 			<el-form-item label="类型" prop="type">
