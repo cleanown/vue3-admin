@@ -1,3 +1,5 @@
+import { ElMessage } from "element-plus";
+
 /**
  * 检测类型
  * @param {any} target 检测的目标
@@ -111,4 +113,53 @@ export function debounce<T extends (...args: any[]) => void>(func: T, wait: numb
  */
 export function randomNum(bit: number = 5): number {
 	return Math.floor(Math.random() * Math.pow(10, bit))
+}
+
+/**
+ * 复制文本
+ * @param {string} text 复制的内容
+ * @param {() => void} success 成功回调
+ * @param {(tip: string) => void} fail 出错回调
+ * @example
+ * ```js
+ * copyText(value, () => this.$message.success('复制成功'), tip => this.$message.warning(tip));
+ * ```
+ */
+export function copyText(text: string) {
+  text = text.replace(/(^\s*)|(\s*$)/g, '');
+  if (!text) {
+    ElMessage({
+      message: "复制失败：复制的内容不能为空！",
+      type: "warning"
+    })
+    return;
+  }
+  const id = 'the-clipboard';
+  /**
+   * 粘贴板节点
+   * @type {HTMLTextAreaElement}
+   */
+  let clipboard = document.getElementById(id) as HTMLTextAreaElement;
+  if (!clipboard) {
+    clipboard = document.createElement('textarea');
+    clipboard.id = id;
+    clipboard.readOnly = true
+    clipboard.style.cssText = 'font-size: 15px; position: fixed; top: -1000%; left: -1000%;';
+    document.body.appendChild(clipboard);
+  }
+  clipboard.value = text;
+  clipboard.select();
+  clipboard.setSelectionRange(0, text.length);
+  const state = document.execCommand('copy');
+  if (state) {
+    ElMessage({
+      message: `复制成功:${text}`,
+      type: "success"
+    })
+  } else {
+    ElMessage({
+      message: "复制失败",
+      type: "warning"
+    })
+  }
 }
