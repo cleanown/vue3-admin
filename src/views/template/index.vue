@@ -36,8 +36,12 @@
 				<el-table-column prop="level" label="层级" :min-width="200" show-overflow-tooltip />
 				<el-table-column prop="radio" label="单选" :min-width="200" show-overflow-tooltip />
 				<el-table-column prop="check" label="多选" :min-width="200" show-overflow-tooltip />
-				<el-table-column prop="updateTime" label="更新时间" :min-width="200" show-overflow-tooltip />
-				<el-table-column prop="createTime" label="创建时间" :min-width="200" show-overflow-tooltip />
+				<el-table-column prop="updateTime" label="更新时间" :width="170" show-overflow-tooltip>
+					<template #default="scoped"> {{ scoped.row.updateTime ? formatDate(new Date(scoped.row.updateTime)) : '' }} </template>
+				</el-table-column>
+				<el-table-column prop="createTime" label="创建时间" :width="170" show-overflow-tooltip>
+					<template #default="scoped"> {{ scoped.row.createTime ? formatDate(new Date(scoped.row.createTime)) : '' }} </template>
+				</el-table-column>
 				<el-table-column label="操作" align="center" :min-width="150" fixed="right">
 					<template #default="scoped">
 						<el-button type="primary" size="small" @click="handleEdit(scoped.row)">编辑</el-button>
